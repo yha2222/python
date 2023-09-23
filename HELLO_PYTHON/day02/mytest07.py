@@ -11,7 +11,7 @@ from random import random
 rnd = random()
 ran = int(rnd * 100) + 1
 
-res = False
+res = True
 
 for i in range(10):
     me = input("숫자를 입력하시오")
@@ -19,14 +19,14 @@ for i in range(10):
     
     if ans == ran :
         print("{} 정답입니다.".format(ran))
-        res = True
+        res = False
         break
     elif ans < ran :
         print("{} UP".format(ans))
     else :
         print("{} DOWN".format(ans))
         
-if res :
-    print("끝")
+if not res :
+    print("성공!")
 else :
     print("10번 안에 맞추기 실패!")
