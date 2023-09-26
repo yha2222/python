@@ -8,23 +8,22 @@
 # (50) 정답입니다.
 from random import random
 
-rnd = random()
-ran = int(rnd * 100) + 1
+com = int(random() * 100) + 1
 
 res = True
 
 for i in range(10):
     me = input("숫자를 입력하시오")
-    ans = int(me)
+    ime = int(me)
     
-    if ans == ran :
-        print("{} 정답입니다.".format(ran))
+    if ime == com :
+        print("{} 정답입니다.".format(me))
         res = False
         break
-    elif ans < ran :
-        print("{} UP".format(ans))
+    elif ime < com :
+        print("{} UP".format(ime))
     else :
-        print("{} DOWN".format(ans))
+        print("{} DOWN".format(ime))
         
 if not res :
     print("성공!")
