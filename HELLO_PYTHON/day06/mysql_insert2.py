@@ -22,8 +22,8 @@ VALUES
 """
 print(sql)
 
-curs.execute(sql)
-print("cnt", curs.rowcount)
+cnt = curs.execute(sql)
+print("cnt", cnt)
 conn.commit()
 
 curs.close()

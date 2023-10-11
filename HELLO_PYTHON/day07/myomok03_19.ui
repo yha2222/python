@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>532</width>
-    <height>404</height>
+    <width>877</width>
+    <height>762</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,17 +17,14 @@
    <widget class="QPushButton" name="pb">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>160</y>
+      <x>790</x>
+      <y>60</y>
       <width>40</width>
       <height>40</height>
      </rect>
     </property>
     <property name="toolTip">
-     <string>1, 1</string>
-    </property>
-    <property name="statusTip">
-     <string/>
+     <string>1,0</string>
     </property>
     <property name="text">
      <string>리셋</string>
@@ -45,7 +42,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>532</width>
+     <width>877</width>
      <height>21</height>
     </rect>
    </property>

@@ -24,10 +24,7 @@
      </rect>
     </property>
     <property name="toolTip">
-     <string>1, 1</string>
-    </property>
-    <property name="statusTip">
-     <string/>
+     <string>1,0</string>
     </property>
     <property name="text">
      <string>리셋</string>

@@ -15,9 +15,10 @@ addr = '9'
 
 curs = conn.cursor()
 sql = f"""
-UPDATE emp
-SET e_name = '{e_name}', gen='{gen}', addr='{addr}'
-WHERE e_id = '{e_id}'
+    DELETE
+    FROM emp
+    WHERE
+        e_id = '{e_id}'
 """
 print(sql)
 

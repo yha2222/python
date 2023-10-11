@@ -9,13 +9,13 @@ conn = pymysql.connect(
     )
 
 # jdbc - st
-cursor = conn.cursor(pymysql.cursors.DictCursor)
+curs = conn.cursor(pymysql.cursors.DictCursor)
 
 sql="SELECT * FROM emp"
-cursor.execute(sql)
+curs.execute(sql)
 
-all = cursor.fetchall() # jdbc - rs
-print(all)
+rows = curs.fetchall() # jdbc - rs
+print(rows)
 
-cursor.close()
+curs.close()
 conn.close()

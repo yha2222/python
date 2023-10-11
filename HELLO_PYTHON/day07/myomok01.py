@@ -1,33 +1,37 @@
-from PyQt5 import QtWidgets, uic, QtGui
 import sys
-from PyQt5.Qt import QLabel, Qt
+from PyQt5.QtWidgets import *
+from PyQt5 import uic
+from PyQt5 import QtCore
+from PyQt5.QtGui import *
+from PyQt5.Qt import Qt
 
-form_window = uic.loadUiType("myomok01.ui")[0]
+form_class = uic.loadUiType("myomok01.ui")[0]
 
-class UiMainWindow(QtWidgets.QMainWindow, form_window) :
-    def __init__(self) :
+class MyWindow(QMainWindow, form_class):
+    def __init__(self):
         super().__init__()
+        self.flag_wb = True
         self.setupUi(self)
-        # self. 붙여서 전역변수화 -> 함수 2개 따로 씀 => 별로
-        # self.label1 = QLabel('First Label', self)
-        # self.label1.setGeometry(0, 0, 40, 40)
-        # self.label1.setPixmap(QtGui.QPixmap("0.png"))
-        # self.label1.mousePressEvent = self.click2
         
-        self.pb.clicked.connect(self.myclick)
+        for i in range(10):
+            for j in range(10):
+                piece = QPushButton("", self)
+                piece.setIcon(QIcon("0.png"))
+                piece.setIconSize(QtCore.QSize(40, 40))
+                piece.setGeometry(i*40, j*40, 40, 40)
+                piece.clicked.connect(self.click)
+        
         self.show()
         
-        #self.lbl.mousePressEvent = self.click
-        
-    def myclick(self, event):
-        #self.pb = self.sender()
-        self.sender().setIcon(QtGui.QIcon('1.png'))
-        
-        #self.lbl.setPixmap(QtGui.QPixmap("1.png"))
-    # def click2(self, event):
-    #     self.label1.setPixmap(QtGui.QPixmap("1.png"))
+    def click(self):
+        if self.flag_wb :
+            self.sender().setIcon(QIcon("1.png"))
+        else :
+            self.sender().setIcon(QIcon("2.png"))
+        self.flag_wb = not self.flag_wb
 
-if __name__ == "__main__" :
-    app = QtWidgets.QApplication(sys.argv) 
-    main_window = UiMainWindow() 
-    sys.exit(app.exec_())
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    myWindow = MyWindow()
+    myWindow.show()
+    app.exec_()
