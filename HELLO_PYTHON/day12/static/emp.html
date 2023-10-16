@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="jquery-3.7.1.js"></script>
+<script type="text/javascript">
+function fn_list(){
+	$.ajax({
+		type: "POST",
+		url: '/emp_selects',
+		success: (res) => {
+			var list = res.list;
+			var txt = "";
+			for(var i=0;i<list.length;i++){
+				var e_id	= list[i].e_id;
+				var e_name	= list[i].e_name;
+				var gen		= list[i].gen;
+				var addr	= list[i].addr;
+				txt += `
+					<tr>
+						<td><a href="javascript:fn_one('${e_id}')">${e_id}</a></td>
+						<td>${e_name}</td>
+						<td>${gen}</td>
+						<td>${addr}</td>
+					</tr>
+				`;
+			}
+			$("#my_tbody").html(txt);
+			
+			
+		}
+	});
+}
+
+function fn_one(e_id){
+	var data = {e_id : e_id};
+	$.ajax({
+		type: "POST",
+		url: '/emp_select',
+		data: data,
+		success: (res) => {
+			var vo = res.vo;
+			$("#e_id").val(vo.e_id);
+			$("#e_name").val(vo.e_name);
+			$("#gen").val(vo.gen);
+			$("#addr").val(vo.addr);
+		}
+	});
+}
+
+function fn_add(){
+	var data = {
+			e_id	 : $("#e_id").val(),
+			e_name	 : $("#e_name").val(),
+			gen		 : $("#gen").val(),
+			addr	 : $("#addr").val()
+	};
+	
+	$.ajax({
+		type: "POST",
+		url: '/emp_add',
+		data: data,
+		success: (res) => {
+			var cnt = res.cnt;
+			if(cnt == 1){
+				alert("정상적으로 추가되었습니다.");
+				fn_list();
+				$("#e_id").val("");
+				$("#e_name").val("");
+				$("#gen").val("");
+				$("#addr").val("");
+			} else {
+				alert("실행 도중 문제가 생겼습니다.");
+			}
+		}
+	});
+}
+
+function fn_mod(){
+	var data = {
+			e_id	 : $("#e_id").val(),
+			e_name	 : $("#e_name").val(),
+			gen		 : $("#gen").val(),
+			addr	 : $("#addr").val()
+	};
+	
+	$.ajax({
+		type: "POST",
+		url: '/emp_mod',
+		data: data,
+		success: (res) => {
+			var cnt = res.cnt;
+			if(cnt == 1){
+				alert("정상적으로 수정되었습니다.");
+				fn_list();
+				$("#e_id").val("");
+				$("#e_name").val("");
+				$("#gen").val("");
+				$("#addr").val("");
+			} else {
+				alert("실행 도중 문제가 생겼습니다.");
+			}
+		}
+	});
+}
+
+function fn_del(){
+	var data = {
+			e_id	 : $("#e_id").val()
+	};
+	
+	$.ajax({
+		type: "POST",
+		url: '/emp_del',
+		data: data,
+		success: (res) => {
+			var cnt = res.cnt;
+			if(cnt == 1){
+				alert("정상적으로 삭제되었습니다.");
+				fn_list();
+				$("#e_id").val("");
+				$("#e_name").val("");
+				$("#gen").val("");
+				$("#addr").val("");
+			} else {
+				alert("실행 도중 문제가 생겼습니다.");
+			}
+		}
+	});
+}
+
+$(document).ready(function(){
+	fn_list();
+	
+	$("#btn_add").click(function (event) {
+		fn_add();
+	});
+	
+	$("#btn_mod").click(function (event) {
+		fn_mod();
+	});
+	
+	$("#btn_del").click(function (event) {
+		fn_del();
+	});
+});
+</script>
+</head>
+<body>
+<table border="1px">
+	<thead>
+		<tr>
+			<td>사번</td>
+			<td>이름</td>
+			<td>성별</td>
+			<td>주소</td>
+		</tr>
+	</thead>
+	<tbody id="my_tbody">
+		<tr>
+			<td colspan="4">데이터가 없습니다.</td>
+		</tr>
+	</tbody>
+</table>
+<table border="1px">
+	<tr>
+		<td>사번</td>
+		<td>
+			<input type="text" id="e_id" />
+		</td>
+	</tr>
+	<tr>
+		<td>이름</td>
+		<td>
+			<input type="text" id="e_name" />
+		</td>
+	</tr>
+	<tr>
+		<td>성별</td>
+		<td>
+			<input type="text" id="gen" />
+		</td>
+	</tr>
+	<tr>
+		<td>주소</td>
+		<td>
+			<input type="text" id="addr" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<input type="button" id="btn_add" value="추가" />
+			<input type="button" id="btn_mod" value="수정" />
+			<input type="button" id="btn_del" value="삭제" />
+		</td>
+	</tr>
+</table>
+
+</body>
+</html>

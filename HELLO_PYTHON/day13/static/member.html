@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+function fn_list(){
+	axios.post('/mem_selects', {})
+	.then(function (res) {
+		var list = res.data.list;
+		var txt = "";
+		for(var i=0; i<list.length; i++){
+			var m_id	= list[i].m_id;
+			var m_name	= list[i].m_name;
+			var tel		= list[i].tel;
+			var email	= list[i].email;
+			txt += `
+				<tr>
+					<td><a href="javascript:fn_one('${m_id}')">${m_id}</a></td>
+					<td>${m_name}</td>
+					<td>${tel}</td>
+					<td>${email}</td>
+				</tr>
+			`;
+		}
+		document.querySelector("#my_tbody").innerHTML = txt;
+	});
+}
+
+function fn_one(m_id){
+	var data = {m_id : m_id};
+	axios.post('/mem_select', data)
+	.then(function (res) {
+		var vo = res.data.vo;
+		document.querySelector("#m_id").value = vo.m_id;
+		document.querySelector("#m_name").value = vo.m_name;
+		document.querySelector("#tel").value = vo.tel;
+		document.querySelector("#email").value = vo.email;
+	});
+}
+</script>
+</head>
+<body onload="fn_list()">
+MEMBER <br/>
+<table border="1px">
+	<thead>
+		<tr>
+			<td>사번</td>
+			<td>이름</td>
+			<td>전화번호</td>
+			<td>이메일</td>
+		</tr>
+	</thead>
+	<tbody id="my_tbody">
+		<tr>
+			<td colspan="4">검색된 데이터가 없습니다.</td>
+		</tr>
+	</tbody>
+</table>
+<table border="1px">
+	<tr>
+		<td>사번</td>
+		<td>
+			<input type="text" id="m_id" />
+		</td>
+	</tr>
+	<tr>
+		<td>이름</td>
+		<td>
+			<input type="text" id="m_name" />
+		</td>
+	</tr>
+	<tr>
+		<td>전화번호</td>
+		<td>
+			<input type="text" id="tel" />
+		</td>
+	</tr>
+	<tr>
+		<td>이메일</td>
+		<td>
+			<input type="text" id="email" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<input type="button" id="btn_add" value="추가" />
+			<input type="button" id="btn_mod" value="수정" />
+			<input type="button" id="btn_del" value="삭제" />
+		</td>
+	</tr>
+</table>
+</body>
+</html>

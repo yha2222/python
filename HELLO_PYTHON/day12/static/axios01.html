@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+function myajax(){
+	axios.post('/myajax_axios', {
+		menu: '메뉴'
+	})
+	.then(function (response) {
+		console.log(response);
+	})
+	.catch(function (error) {
+		 console.log(error);
+	});
+}
+</script>
+</head>
+<body>
+<a href="javascript:myajax()">axios</a>
+</body>
+</html>
