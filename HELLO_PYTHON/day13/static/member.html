@@ -39,6 +39,72 @@ function fn_one(m_id){
 		document.querySelector("#email").value = vo.email;
 	});
 }
+
+function fn_add(){
+	var data = {
+		m_name	 : document.querySelector("#m_name").value,
+		tel		 : document.querySelector("#tel").value,
+		email	 : document.querySelector("#email").value
+	};
+	
+	axios.post('/mem_add', data)
+	.then(function (res) {
+		var cnt = res.data.cnt;
+		if(cnt == 1){
+			alert("정상적으로 추가되었습니다.");
+			fn_list();
+			document.querySelector("#m_id").value = "";
+			document.querySelector("#m_name").value = "";
+			document.querySelector("#tel").value = "";
+			document.querySelector("#email").value = "";
+		} else {
+			alert("실행 도중 문제가 생겼습니다.");
+		}
+	});
+}
+
+function fn_mod(){
+	var data = {
+			m_id	 : document.querySelector("#m_id").value,
+			m_name	 : document.querySelector("#m_name").value,
+			tel		 : document.querySelector("#tel").value,
+			email	 : document.querySelector("#email").value
+		};
+	
+	axios.post('/mem_mod', data)
+	.then(function (res) {
+		var cnt = res.data.cnt;
+		if(cnt == 1){
+			alert("정상적으로 수정되었습니다.");
+			fn_list();
+			document.querySelector("#m_id").value = "";
+			document.querySelector("#m_name").value = "";
+			document.querySelector("#tel").value = "";
+			document.querySelector("#email").value = "";
+		} else {
+			alert("실행 도중 문제가 생겼습니다.");
+		}
+	});
+}
+
+function fn_del(){
+	var data = {m_id : document.querySelector("#m_id").value};
+	
+	axios.post('/mem_del', data)
+	.then(function (res) {
+		var cnt = res.data.cnt;
+		if(cnt == 1){
+			alert("정상적으로 삭제되었습니다.");
+			fn_list();
+			document.querySelector("#m_id").value = "";
+			document.querySelector("#m_name").value = "";
+			document.querySelector("#tel").value = "";
+			document.querySelector("#email").value = "";
+		} else {
+			alert("실행 도중 문제가 생겼습니다.");
+		}
+	});
+}
 </script>
 </head>
 <body onload="fn_list()">
@@ -85,9 +151,9 @@ MEMBER <br/>
 	</tr>
 	<tr>
 		<td colspan="3">
-			<input type="button" id="btn_add" value="추가" />
-			<input type="button" id="btn_mod" value="수정" />
-			<input type="button" id="btn_del" value="삭제" />
+			<input type="button" id="btn_add" value="추가" onclick="fn_add()" />
+			<input type="button" id="btn_mod" value="수정" onclick="fn_mod()" />
+			<input type="button" id="btn_del" value="삭제" onclick="fn_del()"/>
 		</td>
 	</tr>
 </table>
